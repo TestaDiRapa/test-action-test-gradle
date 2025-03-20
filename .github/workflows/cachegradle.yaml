@@ -16,6 +16,6 @@ jobs:
     steps:
       - name: Test
         run: |
-          echo "testuseless"
+          echo "test"
           echo ${{github.event.pull_request.merged}}
           echo ${{github.event.pull_request.merged != true}}
