@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged != true
+    if: !contains(github.event.head_commit.message, '(#')
 
     steps:
       - name: Test
