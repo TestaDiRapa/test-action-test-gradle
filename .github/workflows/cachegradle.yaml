@@ -19,4 +19,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_JSON=$(gh pr list --state merged --search "$(git rev-parse HEAD)" --json headRefName,number --limit 1)
-          echo "Source branch: $(echo $PR_JSON | jq -r '.[0].headRefName')"
+          pr_branch=$(echo $PR_JSON | jq -r '.[0].headRefName')
+          if [ -n $pr_branch]; then 
+            echo $pr_branch
+          else
+            echo "No branch"
+          fi
