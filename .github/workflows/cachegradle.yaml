@@ -13,9 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get branch name
-        id: get_branch
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - name: Install GitHub CLI
+        uses: cli/cli@latest
 
-      - name: Print branch name
-        run: echo "Current branch is ${{ env.branch_name }}"
+      - name: Get merged PR information
+        id: pr_info
+        run: |
+          PR_JSON=$(gh pr list --state merged --search "$(git rev-parse HEAD)" --json headRefName,number --limit 1)
+           echo "Source branch: $(echo $PR_JSON | jq -r '.[0].headRefName')"
