@@ -13,11 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install GitHub CLI
-        uses: cli/cli@latest
-
       - name: Get merged PR information
         id: pr_info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_JSON=$(gh pr list --state merged --search "$(git rev-parse HEAD)" --json headRefName,number --limit 1)
-           echo "Source branch: $(echo $PR_JSON | jq -r '.[0].headRefName')"
+          echo "Source branch: $(echo $PR_JSON | jq -r '.[0].headRefName')"
