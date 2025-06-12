@@ -16,7 +16,7 @@ jobs:
       - name: Get merged PR information
         id: pr_info
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} #useless comment
         run: |
           pr_json=$(gh pr list --state merged --search "$(git rev-parse HEAD)" --json headRefName,number --limit 1)
           echo $pr_json
