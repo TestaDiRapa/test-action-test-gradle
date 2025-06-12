@@ -20,8 +20,8 @@ jobs:
         run: |
           pr_json=$(gh pr list --state merged --search "$(git rev-parse HEAD)" --json headRefName,number --limit 1)
           echo $pr_json
-          pr_branch=$(echo $PR_JSON | jq -r '.[0].headRefName')
-          if [ -n $pr_branch]; then 
+          pr_branch=$(echo $pr_json | jq -r '.[0].headRefName')
+          if [ -n $pr_branch ]; then 
             echo $pr_branch
           else
             echo "No branch"
