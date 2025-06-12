@@ -26,3 +26,9 @@ jobs:
           else
             echo "No branch"
           fi
+
+          if git ls-remote --heads origin "$pr_branch" | grep -q "$pr_branch"; then
+            echo "Branch '$pr_branch' exists on remote origin"
+          else
+            echo "Branch '$pr_branch' does NOT exist on remote origin"
+          fi
